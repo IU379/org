@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 			//lives ui spawn and vars
 			private final int EHART_Y = 10;
 			private final int EHART_X = 760;
-			public int elives = 3;
+			public static int enemylives = 3;
 		
 			//lives sprite
 			private final String E3lives = "C:\\Users\\IGMAdmin\\Desktop\\Workspace\\2p good\\images\\3hart.png";
@@ -21,7 +21,7 @@ import javax.swing.ImageIcon;
 
 		private void initELives() {
 			
-			switch(elives) {
+			switch(enemylives) {
 				
 				case 3:
 					
@@ -51,6 +51,15 @@ import javax.swing.ImageIcon;
 					
 					ImageIcon ii111 = new ImageIcon(E0lives);
 					setImage(ii111.getImage());
+					setX(EHART_X);
+			        setY(EHART_Y);
+					break;
+					
+				case -1:
+					
+					Board.P1win();
+					ImageIcon ii1111 = new ImageIcon(E0lives);
+					setImage(ii1111.getImage());
 					setX(EHART_X);
 			        setY(EHART_Y);
 					break;

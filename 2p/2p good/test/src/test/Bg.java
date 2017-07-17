@@ -1,7 +1,6 @@
 package test;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 
 	public class Bg extends Sprite implements Pins {
 		

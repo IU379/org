@@ -22,6 +22,8 @@ public class Board extends JPanel implements Runnable, Pins {
     private ELives elives;
     private PLives plives;
     private Bg bg;
+    private P2victory p2victory;
+    private P1victory p1victory;
 
     private boolean ingame = true;
 
@@ -59,6 +61,8 @@ public class Board extends JPanel implements Runnable, Pins {
         elives = new ELives();
         plives = new PLives();
         bg = new Bg();
+        p1victory = new P1victory();
+        p2victory = new P2victory();
         //put ingame
         if (animator == null || !ingame) {
 
@@ -127,6 +131,18 @@ public class Board extends JPanel implements Runnable, Pins {
             g.drawImage(plives.getImage(), plives.getX(), plives.getY(), this);
         }
     }
+    public void drawP2victory(Graphics g) {
+    	if (p2victory.isVisible()) {
+    		
+    		g.drawImage(p2victory.getImage(), p2victory.getX(), p2victory.getY(), this);
+    	}
+    }
+    public void drawP1victory(Graphics g) {
+    	if (p1victory.isVisible()) {
+    		
+    		g.drawImage(p1victory.getImage(), p1victory.getX(), p1victory.getY(), this);
+    	}
+    }
     @Override
     //makes bg
     public void paintComponent(Graphics g) {
@@ -144,7 +160,13 @@ public class Board extends JPanel implements Runnable, Pins {
             drawShot(g);
             drawEnemy(g);
             drawELives(g);
-            drawPLives(g)a;
+            drawPLives(g);
+            if (PLives.playerlives <= -1) {
+            	drawP2victory(g);	
+            }
+            if (ELives.enemylives <= -1) {
+            	drawP1victory(g);
+            }
         }
 
         Toolkit.getDefaultToolkit().sync();
@@ -240,7 +262,16 @@ public class Board extends JPanel implements Runnable, Pins {
             beforeTime = System.currentTimeMillis();
         }
 
-        //gameOver();
+        
+    }
+    //ufo victory
+    public static void P2win() {
+    	
+    }
+    
+    //ship victory
+    public static void P1win() {
+    	
     }
     //shooting keys
     private class TAdapter extends KeyAdapter {
