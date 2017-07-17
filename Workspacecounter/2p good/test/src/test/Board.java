@@ -2,12 +2,15 @@ package test;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Board extends JPanel implements Runnable, Pins {
@@ -25,21 +28,42 @@ public class Board extends JPanel implements Runnable, Pins {
     public int numEliv = 100;
 
     public static int plive;
+    public static int elive;
+    
+    private String eScor = "Hello World";
+    
     
     //Rand num gen
     public static int randomInterget(int min, int max){
-    	 
-    	
     	Random rand = new Random();
     	int dmgNum = rand.nextInt((max - min) + 1) + min;
-    	plive = (numLiv -= dmgNum);
-    	System.out.println(plive);
     	return dmgNum;
-    	
     }
-    public void Health(){
-    	System.out.println(plive);
+    
+    public void pdmg() {
+    	int DmgNum = randomInterget(1, 25);
+    	switch (DmgNum){
+		case 5:
+			DmgNum += 25;
+			break;
+		}
+    	plive = (numLiv -= DmgNum);
+    	if (plive < 0) plive = 0;
+	  	System.out.println("Player = " + plive);
     }
+    
+    public void edmg() {
+    	int DmgNum = randomInterget(1, 25);
+    	switch (DmgNum){
+		case 5:
+			DmgNum += 25;
+			break;
+		}
+		elive = (numEliv -= DmgNum);
+		if (elive < 0) elive = 0;
+	  	System.out.println("Enemy = " + elive);
+    }
+
     //new int dmg player1
     
     private Thread animator;
@@ -205,9 +229,9 @@ public class Board extends JPanel implements Runnable, Pins {
     @Override
     //main run method
     public void run() {
-
+ 	
         long beforeTime, timeDiff, sleep;
-
+        
         beforeTime = System.currentTimeMillis();
         
         while (ingame) {
@@ -235,7 +259,7 @@ public class Board extends JPanel implements Runnable, Pins {
             
             beforeTime = System.currentTimeMillis();
         }
-        //gameOver();
+    	//escore();
     }
     //shooting keys
     private class TAdapter extends KeyAdapter {
@@ -267,6 +291,7 @@ public class Board extends JPanel implements Runnable, Pins {
                     if (!shot.isVisible()) {
                         shot = new Shot(x, y);
                     }
+                    edmg();
                 }
             }
             //enemy
@@ -275,7 +300,7 @@ public class Board extends JPanel implements Runnable, Pins {
                     if (!eshot.isVisible()) {
                         eshot = new EShot(x2, y2);
                     }
-                    Health();
+                    pdmg();
                 }
             }
         }
