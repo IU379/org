@@ -11,6 +11,8 @@ public interface Pins {
     public static final int GO_DOWN = 15;
     public static final int CHANCE = 5;
     public static final int DELAY = 2;
-    public static final int PLAYER_WIDTH = 15;
-    public static final int PLAYER_HEIGHT = 10;
+    public static final int PLAYER_WIDTH = 64;
+    public static final int PLAYER_HEIGHT = 64;
+    public static final int ENEMY_WIDTH = 64;
+    public static final int ENEMY_HEIGHT = 48;
 }

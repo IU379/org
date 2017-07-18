@@ -1,16 +1,35 @@
 package test;
 
 import java.awt.EventQueue;
-import javax.swing.JFrame;
-//starts game
-public class Main extends JFrame implements Pins {
+import java.awt.FlowLayout;
+import java.awt.Frame;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+//starts game
+import javax.swing.JPanel;
+public class Main extends JFrame implements Pins {
+/*score
+	
+	JFrame frame = new JFrame("Test");
+
+	JPanel panel = new JPanel();
+	JLabel label = new JLabel("test");
+
+	panel.add(label);
+
+	frame.add(panel);
+	frame.setVisible(true);
+	
+*/
     public Main() {
 
         initUI();
     }
 
-    private void initUI() {
+
+	private void initUI() {
 
         add(new Board());
         setTitle("Spayship");

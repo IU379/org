@@ -12,9 +12,10 @@ import java.util.Random;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class Board extends JPanel implements Runnable, Pins {
-
+	
 	//variables
     private Dimension d;
     private Player player;
@@ -22,6 +23,8 @@ public class Board extends JPanel implements Runnable, Pins {
     private Shot shot;
     private Enemy enemy;
 
+    private Bg bg;
+    
     private boolean ingame = true;
 
     public static int numLiv = 100;
@@ -30,7 +33,6 @@ public class Board extends JPanel implements Runnable, Pins {
     public static int plive;
     public static int elive;
     
-    private String eScor = "Hello World";
     
     
     //Rand num gen
@@ -41,27 +43,42 @@ public class Board extends JPanel implements Runnable, Pins {
     }
     
     public void pdmg() {
-    	int DmgNum = randomInterget(1, 25);
+    	int DmgNum = randomInterget(1, 50);
     	switch (DmgNum){
 		case 5:
 			DmgNum += 25;
 			break;
+		case 1:
+			DmgNum -= 1;
+			break;
 		}
+    	if (DmgNum >= 15){
+    		DmgNum = randomInterget(1, 10);
+    	}
+		
+    	
     	plive = (numLiv -= DmgNum);
     	if (plive < 0) plive = 0;
-	  	System.out.println("Player = " + plive);
+	  	System.out.println("Player = " + plive + " DMG = " + DmgNum);
     }
     
     public void edmg() {
-    	int DmgNum = randomInterget(1, 25);
+    	int DmgNum = randomInterget(1, 50);
     	switch (DmgNum){
 		case 5:
 			DmgNum += 25;
 			break;
+		case 1:
+			DmgNum -= 2;
+			break;
 		}
+    	if (DmgNum >= 15){
+    		DmgNum = randomInterget(1, 10);
+    	}			
+    	
 		elive = (numEliv -= DmgNum);
 		if (elive < 0) elive = 0;
-	  	System.out.println("Enemy = " + elive);
+	  	System.out.println("Enemy = " + elive + " DMG = " + DmgNum);
     }
 
     //new int dmg player1
@@ -97,6 +114,8 @@ public class Board extends JPanel implements Runnable, Pins {
         player = new Player();
         shot = new Shot();
         eshot = new EShot();
+        bg = new Bg();
+        
         //put ingame
         if (animator == null || !ingame) {
 
@@ -104,6 +123,9 @@ public class Board extends JPanel implements Runnable, Pins {
             animator.start();
         }
     }
+    public void drawBg(Graphics g) {  
+        g.drawImage(bg.getImage(), bg.getX(), bg.getY(), this);  
+}   
     //makes player here
     public void drawPlayer(Graphics g) {
 
@@ -157,6 +179,7 @@ public class Board extends JPanel implements Runnable, Pins {
         if (ingame) {
         	//draws players and bullets
             g.drawLine(0, GROUND, BOARD_WIDTH, GROUND);
+            drawBg(g);
             drawPlayer(g);
             drawShot(g);
             drawEShot(g);
@@ -190,8 +213,8 @@ public class Board extends JPanel implements Runnable, Pins {
         // shot
         if (shot.isVisible()) {
 
-            //int shotX = shot.getX();
-            //int shotY = shot.getY();
+            int shotX = shot.getX();
+            int shotY = shot.getY();
 
             int y = shot.getY();
             y -= 4;
@@ -201,6 +224,21 @@ public class Board extends JPanel implements Runnable, Pins {
             } else {
                 shot.setY(y);
             }
+            int enemyX = enemy.getX();
+            int enemyY = enemy.getY();
+            
+            
+            if(enemy.isVisible() && shot.isVisible()){
+            	if (shotX >= (enemyX)
+            			&& shotX <= (enemyX + ENEMY_WIDTH)
+            			&& shotY >= (enemyY)
+            			&& shotY <= (enemyY + ENEMY_HEIGHT)){
+            				shot.die();
+            				edmg();
+            			}
+            }
+            
+        
         }     
     }
    
@@ -213,8 +251,7 @@ public class Board extends JPanel implements Runnable, Pins {
         //enemy shot
         if (eshot.isVisible()) {
 
-        	//int eshotX = eshot.getX();
-        	//int eshotY = eshot.getY();
+        	
 
         	int y2 = eshot.getY();
         	y2 += 4;
@@ -224,6 +261,22 @@ public class Board extends JPanel implements Runnable, Pins {
         	} else {
                 eshot.setY(y2);
         	}
+        	
+        	int eshotX = eshot.getX();
+         	int eshotY = eshot.getY(); 
+        	
+            int playerX = player.getX();
+            int playerY = player.getY();
+            
+            if(player.isVisible() && eshot.isVisible()){
+            	if (eshotX >= (playerX)
+            			&& eshotX <= (playerX + PLAYER_WIDTH)
+            			&& eshotY >= (playerY)
+            			&& eshotY <= (playerY + PLAYER_HEIGHT)){
+            				eshot.die();
+            				  pdmg();
+            			}
+            }
         }
     }
     @Override
@@ -291,7 +344,6 @@ public class Board extends JPanel implements Runnable, Pins {
                     if (!shot.isVisible()) {
                         shot = new Shot(x, y);
                     }
-                    edmg();
                 }
             }
             //enemy
@@ -300,7 +352,7 @@ public class Board extends JPanel implements Runnable, Pins {
                     if (!eshot.isVisible()) {
                         eshot = new EShot(x2, y2);
                     }
-                    pdmg();
+                  
                 }
             }
         }
