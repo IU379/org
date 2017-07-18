@@ -9,16 +9,17 @@ import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class Board extends JPanel implements Runnable, Pins {
 
 	//variables
     private Dimension d;
-    private Player player;
+    private static Player player;
     private EShot eshot;
     private Shot shot;
-    private Enemy enemy;
+    private static Enemy enemy;
     private ELives elives;
     private PLives plives;
     private Bg bg;
@@ -196,9 +197,8 @@ public class Board extends JPanel implements Runnable, Pins {
         // shot
         if (shot.isVisible()) {
 
-            //int shotX = shot.getX();
-            //int shotY = shot.getY();
-
+            int shotX = shot.getX();
+            int shotY = shot.getY();
             int y = shot.getY();
             y -= 4;
 
@@ -207,7 +207,21 @@ public class Board extends JPanel implements Runnable, Pins {
             } else {
                 shot.setY(y);
             }
-        }     
+
+				int enemyX = enemy.getX();
+                int enemyY = enemy.getY();
+
+                if (enemy.isVisible() && shot.isVisible()) {
+                    if (shotX >= (enemyX)
+                            && shotX <= (enemyX + ENEMY_WIDTH)
+                            && shotY >= (enemyY)
+                            && shotY <= (enemyY + ENEMY_HEIGHT)) {
+                        shot.die();
+                        elives.enemylives -=1;
+                        elives.initELives();
+                    }
+                }
+        }
     }
    
     public void enemyanimationcycle() {
@@ -219,8 +233,8 @@ public class Board extends JPanel implements Runnable, Pins {
         //enemy shot
         if (eshot.isVisible()) {
 
-        	//int eshotX = eshot.getX();
-        	//int eshotY = eshot.getY();
+        	int eshotX = eshot.getX();
+        	int eshotY = eshot.getY();
 
         	int y2 = eshot.getY();
         	y2 += 4;
@@ -230,6 +244,20 @@ public class Board extends JPanel implements Runnable, Pins {
         	} else {
                 eshot.setY(y2);
         	}
+        	
+        	int playerX = player.getX();
+            int playerY = player.getY();
+
+            if (enemy.isVisible() && eshot.isVisible()) {
+                if (eshotX >= (playerX)
+                        && eshotX <= (playerX + PLAYER_WIDTH)
+                        && eshotY >= (playerY)
+                        && eshotY <= (playerY + PLAYER_HEIGHT)) {
+                    eshot.die();
+                    plives.playerlives -=1;
+                    plives.initPLives();
+                }
+            }
         }
     }
     @Override
@@ -264,14 +292,15 @@ public class Board extends JPanel implements Runnable, Pins {
 
         
     }
-    //ufo victory
+	
+	//ufo victory
     public static void P2win() {
-    	
+    	enemy.die();
     }
     
     //ship victory
     public static void P1win() {
-    	
+    	player.die();
     }
     //shooting keys
     private class TAdapter extends KeyAdapter {

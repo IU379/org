@@ -19,12 +19,11 @@ import javax.swing.ImageIcon;
 			initELives();
 		}
 
-		private void initELives() {
+		void initELives() {
 			
 			switch(enemylives) {
 				
 				case 3:
-					
 					ImageIcon ii = new ImageIcon(E3lives);
 					setImage(ii.getImage());
 					setX(EHART_X);
@@ -32,7 +31,6 @@ import javax.swing.ImageIcon;
 			        break;
 			        
 				case 2:
-					
 					ImageIcon ii1 = new ImageIcon(E2lives);
 					setImage(ii1.getImage());
 					setX(EHART_X);
@@ -40,7 +38,6 @@ import javax.swing.ImageIcon;
 			        break;
 			        
 				case 1:
-					
 					ImageIcon ii11 = new ImageIcon(E1lives);
 					setImage(ii11.getImage());
 					setX(EHART_X);
@@ -48,22 +45,20 @@ import javax.swing.ImageIcon;
 			        break;
 			        
 				case 0:
-					
 					ImageIcon ii111 = new ImageIcon(E0lives);
 					setImage(ii111.getImage());
 					setX(EHART_X);
 			        setY(EHART_Y);
 					break;
 					
-				case -1:
-					
+			}
+				
+			if (enemylives <= -1) {
 					Board.P1win();
 					ImageIcon ii1111 = new ImageIcon(E0lives);
 					setImage(ii1111.getImage());
 					setX(EHART_X);
 			        setY(EHART_Y);
-					break;
-			}
-			
+			}			
 		}
 }

@@ -7,7 +7,7 @@ public class Shot extends Sprite {
 	//img location
     private final String shotImg = "C:\\Users\\IGMAdmin\\Desktop\\Workspace\\2p good\\images\\bullet.png";
     //spawn distance from player
-    private final int H_SPACE = 0;
+    private final int H_SPACE = -6;
     private final int V_SPACE = 1;
 
     public Shot() {
@@ -25,5 +25,6 @@ public class Shot extends Sprite {
         
         setX(x - H_SPACE);
         setY(y + V_SPACE);
+        
     }
 }

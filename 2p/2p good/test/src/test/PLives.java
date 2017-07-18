@@ -5,8 +5,8 @@ import javax.swing.ImageIcon;
 	public class PLives extends Sprite implements Pins {
 		
 			//lives ui spawn and vars
-			private final int EHART_Y = 730;
-			private final int EHART_X = 4;
+			private final int PHART_Y = 730;
+			private final int PHART_X = 4;
 			public static int playerlives = 3;
 		
 			//lives sprite
@@ -16,10 +16,10 @@ import javax.swing.ImageIcon;
 			private final String P0lives = "C:\\Users\\IGMAdmin\\Desktop\\Workspace\\2p good\\images\\nopehart.png";
 
 		public PLives() {
-			initELives();
+			initPLives();
 		}
 
-		private void initELives() {
+		void initPLives() {
 			
 			switch(playerlives) {
 				
@@ -27,43 +27,41 @@ import javax.swing.ImageIcon;
 					
 					ImageIcon ii = new ImageIcon(P3lives);
 					setImage(ii.getImage());
-					setX(EHART_X);
-			        setY(EHART_Y);
+					setX(PHART_X);
+			        setY(PHART_Y);
 			        break;
 			        
 				case 2:
 					
 					ImageIcon ii1 = new ImageIcon(P2lives);
 					setImage(ii1.getImage());
-					setX(EHART_X);
-			        setY(EHART_Y);
+					setX(PHART_X);
+			        setY(PHART_Y);
 			        break;
 			        
 				case 1:
 					
 					ImageIcon ii11 = new ImageIcon(P1lives);
 					setImage(ii11.getImage());
-					setX(EHART_X);
-			        setY(EHART_Y);
+					setX(PHART_X);
+			        setY(PHART_Y);
 			        break;
 			        
 				case 0:
 					
 					ImageIcon ii111 = new ImageIcon(P0lives);
 					setImage(ii111.getImage());
-					setX(EHART_X);
-			        setY(EHART_Y);
+					setX(PHART_X);
+			        setY(PHART_Y);
 					break;
 					
-				case -1:
-					
+			}
+				if (playerlives <= -1) {
 					Board.P2win();
 					ImageIcon ii1111 = new ImageIcon(P0lives);
 					setImage(ii1111.getImage());
-					setX(EHART_X);
-			        setY(EHART_Y);
-					break;
-			}
-			
+					setX(PHART_X);
+			        setY(PHART_Y);
+				}
 		}
 }
