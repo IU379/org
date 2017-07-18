@@ -345,13 +345,9 @@ public class Board extends JPanel implements Runnable, Pins {
                 }
             }
             //enemy
-            if (key == KeyEvent.VK_SPACE) {
-                if (ingame) {
-                    if (!eshot.isVisible()) {
-                        eshot = new EShot(x2, y2);
-                    }
-                }
-            }
+            
+               
+            
         }
     }
 }
