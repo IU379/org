@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 	public class Enemy extends Sprite implements Pins {
 		//enemy spawn location
 		public final int ESTART_Y = 50;
-		public final int ESTART_X = 270;
+		public final int ESTART_X = 320;
 		
 		//enemy sprite
 		private final String enemyImg = "C:\\Users\\IGMAdmin\\Desktop\\Workspace\\2p\\images\\UFO.png";
@@ -23,6 +23,8 @@ import javax.swing.ImageIcon;
         ImageIcon ii = new ImageIcon(enemyImg);
         ewidth = 28;
         setImage(ii.getImage());
+        setX(ESTART_X);
+        setY(ESTART_Y);
     }
     public void enemyExplode() {
     	if (ELives.enemylives <= -1) {

@@ -7,7 +7,7 @@ package test;
 	public class Player extends Sprite implements Pins {
 		//start location of player
 	    public final int START_Y = 650;
-	    public final int START_X = 270;
+	    public final int START_X = 320;
 	    //image
 	    private final String playerImg = "C:\\Users\\IGMAdmin\\Desktop\\Workspace\\2p\\images\\ship.png";
 	    private final String playerEx = "C:\\Users\\IGMAdmin\\Desktop\\Workspace\\2p\\images\\shipex.png";
