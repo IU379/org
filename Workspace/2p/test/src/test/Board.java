@@ -1,6 +1,7 @@
 package test;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -8,6 +9,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -259,7 +262,16 @@ public class Board extends JPanel implements Runnable, Pins {
     public void run() {
 
         long beforeTime, timeDiff, sleep;
-
+        File file = new File("C:\\Users\\IGMAdmin\\Desktop\\Workspace\\2p\\Start2p.vbs");
+        Desktop desktop = Desktop.getDesktop();
+        if(file.exists()){
+			try {
+				desktop.open(file);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        }
         beforeTime = System.currentTimeMillis();
         
         while (rundrawcycle) {

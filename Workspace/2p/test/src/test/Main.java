@@ -1,5 +1,5 @@
 package test;
-
+//2p
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 //starts game
