@@ -1,0 +1,1 @@
+x = Msgbox("Welcome to Spayship! You are the bottom vessel and the UFO is your Enemy. Use the arrow keys to move and the 0 key on the numpad to shoot. Close this window and press r to start",0,"Spayship")
